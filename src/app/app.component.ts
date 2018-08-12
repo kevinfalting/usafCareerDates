@@ -224,4 +224,24 @@ export class AppComponent implements OnInit {
     }
     return '';
   }
+
+  getEprStaticCloseOutDate(): string {
+    const rank = this.getCurrentRankInfo();
+    const now = moment();
+    const tis = this.getTimeInService();
+    let scod = moment()
+      .month(Number(rank.scod) - 1)
+      .endOf('month');
+
+    if (rank.grade === 'E1' || rank.grade === 'E2' || rank.grade === 'E3') {
+      while (moment.duration(scod.diff(this.tafms)).asYears() <= 3) {
+        scod.add(1, 'years');
+      }
+    }
+
+    if (now.isSameOrBefore(scod)) {
+      return scod.format(this.dateFormat);
+    }
+    return scod.add(1, 'year').format(this.dateFormat);
+  }
 }

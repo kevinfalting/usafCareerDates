@@ -67,6 +67,9 @@
   <hr>
   <div class="row career-answers">
     <div class="col offset-md-3">
+      <p *ngIf='tafmsIsValid() && dorIsValid()'>Your next EPR close out date is:
+        <strong>{{ getEprStaticCloseOutDate() }}</strong>
+      </p>
       <div *ngIf='tafmsIsValid() && isFirstEnlistment()'>
         <p>Shortfall retraining window opens on:
           <strong>{{ getHalfwayFtaDate() }}</strong>
@@ -91,12 +94,12 @@
   </div>
   <hr>
   <div class="row">
-    <div class="col text-center">
-      <p class="text-muted">This calculator was created using the promotion AFIs. If you have any questions, suggestions, or corrections, email
+    <div class="col text-center text-muted">
+      <p>This calculator was created using the promotion AFIs. If you have any questions, suggestions, or corrections, email
         me at
-        <a href="mailto:kevinfalting@gmail.com">kevinfalting@gmail.com</a>. Things change all the time and I can't keep up with it all. If you'd like to contribute
-        to the project, the code is hosted on
-        <a href="https://github.com/kevinfalting/usafCareerDates">Github</a>! </p>
+        <a href="mailto:kevinfalting@gmail.com">kevinfalting@gmail.com</a>. This calculator is still in beta, so please double-check the dates, it's possible that
+        there may be some errors. If you'd like to contribute to the project, the code is hosted at
+        <a href="https://github.com/kevinfalting/usafCareerDates">GitHub</a>!</p>
     </div>
   </div>
 </div>

@@ -4,21 +4,24 @@ export const Ranks = [
     grade: 'E1',
     hyt: '96',
     tis: '',
-    tig: '6'
+    tig: '6',
+    scod: '03'
   },
   {
     rank: 'Airman',
     grade: 'E2',
     hyt: '96',
     tis: '',
-    tig: '10'
+    tig: '10',
+    scod: '03'
   },
   {
     rank: 'Airman First Class',
     grade: 'E3',
     hyt: '96',
     tis: '36',
-    tig: '20' // or 28, whichever comes first. 28 is hard coded.
+    tig: '20', // or 28, whichever comes first. 28 is hard coded.
+    scod: '03'
   },
   {
     rank: 'Senior Airman',
@@ -26,7 +29,8 @@ export const Ranks = [
     hyt: '96',
     tis: '36',
     tig: '6',
-    cutoff: '03'
+    cutoff: '03',
+    scod: '03'
   },
   {
     rank: 'Staff Sergeant',
@@ -34,7 +38,8 @@ export const Ranks = [
     hyt: '180',
     tis: '60',
     tig: '23',
-    cutoff: '01'
+    cutoff: '01',
+    scod: '01'
   },
   {
     rank: 'Technical Sergeant',
@@ -42,7 +47,8 @@ export const Ranks = [
     hyt: '240',
     tis: '96',
     tig: '24',
-    cutoff: '11'
+    cutoff: '11',
+    scod: '11'
   },
   {
     rank: 'Master Sergeant',
@@ -51,7 +57,8 @@ export const Ranks = [
     tis: '132',
     tig: '20',
     retainability: '24',
-    cutoff: '09'
+    cutoff: '09',
+    scod: '09'
   },
   {
     rank: 'Senior Master Sergeant',
@@ -60,7 +67,8 @@ export const Ranks = [
     tis: '168',
     tig: '21',
     retainability: '24',
-    cutoff: '07'
+    cutoff: '07',
+    scod: '07'
   },
   {
     rank: 'Chief Master Sergeant',
@@ -69,6 +77,7 @@ export const Ranks = [
     tis: '',
     tig: '',
     retainability: '36',
-    cutoff: ''
+    cutoff: '',
+    scod: '05'
   }
 ];

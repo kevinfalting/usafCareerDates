@@ -6,4 +6,5 @@ export default interface Rank {
   tig: string; // Time In Grade requirement (months)
   cutoff?: string; // Cutoff date to test for next rank. (MM) Go to the last day of the month.
   retainability?: string; // To put on this rank, you must have this many months of retainability. (months)
+  scod: string; // EPR Static Close Out Date. (MM) Go to the last day of the month.
 }
