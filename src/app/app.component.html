@@ -1,20 +1,102 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container">
+  <div class="row">
+    <div class="col text-center">
+      <h1>{{ title }}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-md-7 col-lg-6 offset-md-3">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default">Date Entered Air Force</span>
+        </div>
+        <input type="date" id="tafms" class="form-control" aria-label="Date Entered Air Force" aria-describedby="inputGroup-sizing-default"
+          (change)='calculate()' autofocus>
+      </div>
+      <div class="form-check" style="margin-bottom: 1em;">
+        <input class="form-check-input" type="checkbox" value="" id="fta" (change)='calculate()'>
+        <label class="form-check-label" for="fta">
+          I'm on my first enlistment.
+        </label>
+      </div>
+      <div *ngIf='isFirstEnlistment()' style="margin-bottom: 1em;" (change)='calculate()'>
+        Contract Length:
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="contract" id="4" value="4">
+          <label class="form-check-label" for="4">4</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="contract" id="6" value="6" checked>
+          <label class="form-check-label" for="6">6</label>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="rank">Current Rank</label>
+        </div>
+        <select class="custom-select" id="rank" (change)='calculate()'>
+          <option *ngFor="let rank of ranks" value="{{ rank.rank }}">{{ rank.rank }}</option>
+        </select>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default">Date of Rank</span>
+        </div>
+        <input type="date" id="dor" class="form-control" aria-label="Date of Rank" aria-describedby="inputGroup-sizing-default" (change)='calculate()'>
+      </div>
+      <p class="text-danger" *ngIf='errorMessageIsActive()'>
+        <strong>{{ errorMessage }}</strong>
+      </p>
+    </div>
+    <!-- <div class="col">
+      <p class="text-danger" *ngIf='errorMessageIsActive()'>
+        <strong>{{ errorMessage }}</strong>
+      </p>
+      <p *ngIf='tafmsIsValid()'>Date Entered Air Force:
+        <strong>{{ getTafmsDate() }}</strong>
+      </p>
+      <p *ngIf='isFirstEnlistment()'>This is my first {{ contract }} year enlistment.</p>
+      <p *ngIf='rankIsValid()'>Current Rank:
+        <strong>{{ rank }}</strong>
+      </p>
+      <p *ngIf='dorIsValid()'>Date of Rank:
+        <strong>{{ getDorDate() }}</strong>
+      </p>
+    </div> -->
+  </div>
+  <hr>
+  <div class="row career-answers">
+    <div class="col offset-md-3">
+      <div *ngIf='tafmsIsValid() && isFirstEnlistment()'>
+        <p>Shortfall retraining window opens on:
+          <strong>{{ getHalfwayFtaDate() }}</strong>
+        </p>
+        <p>Regular retraining window is:
+          <strong>{{ getRetrainWindow() }}</strong>
+        </p>
+      </div>
+      <p *ngIf='tafmsIsValid() && isFirstEnlistment()'>First enlistment ends on:
+        <strong>{{ ftaContractEndDate }}</strong>
+      </p>
+      <p *ngIf='tafmsIsValid() && rankIsValid() && dorIsValid() && isEligibleToTestForRank()'>Eligible to test for rank after:
+        <strong>{{ getEligibleToTestForPromotionDate() }}</strong>
+      </p>
+      <p *ngIf='tafmsIsValid() && rankIsValid()'>High Year of Tenure:
+        <strong>{{ getHighYearOfTenure() }}</strong>
+      </p>
+      <p *ngIf='tafmsIsValid()'>Eligible to retire on:
+        <strong>{{ getRetirementDate() }}</strong>
+      </p>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col text-center">
+      <p class="text-muted">This calculator was created using the promotion AFIs. If you have any questions, suggestions, or corrections, email
+        me at
+        <a href="mailto:kevinfalting@gmail.com">kevinfalting@gmail.com</a>. Things change all the time and I can't keep up with it all. If you'd like to contribute
+        to the project, the code is hosted on
+        <a href="https://github.com/kevinfalting/usafCareerDates">Github</a>! </p>
+    </div>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
